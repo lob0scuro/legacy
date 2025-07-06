@@ -1,0 +1,136 @@
+.uploadForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 3rem 1rem;
+  gap: 14px;
+}
+
+.uploadForm div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 80%;
+  padding: 0.5rem;
+}
+
+.uploadForm label {
+  font-weight: bold;
+  color: var(--black);
+  font-family: var(--secondaryFont);
+}
+
+.uploadForm input[type="text"] {
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 16px;
+}
+
+.uploadForm input[type="file"] {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 16px;
+  display: none;
+}
+
+.uploadLabel {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  background-color: var(--blue);
+  color: var(--white) !important;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  text-wrap: nowrap;
+  align-self: center;
+  box-shadow: -1px 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.filePreview {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 1rem;
+  width: 200px;
+  height: auto;
+  overflow-x: auto;
+  border: 3px solid #ccc;
+  border-radius: 12px;
+  /* padding: 0.5rem; */
+  background-color: var(--black);
+  scrollbar-color: var(--blue) var(--black);
+  scroll-behavior: smooth;
+}
+
+.filePreviewItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filePreviewItem button {
+  background-color: rgb(186, 15, 15);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+  padding-block: 0.2rem;
+}
+
+.uploadedFile {
+  width: 200px;
+  height: auto;
+}
+
+.uploadForm button {
+  background-color: var(--black);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.loadingScreen {
+  display: none;
+}
+
+.loadingScreenShow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  display: flex;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

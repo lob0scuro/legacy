@@ -1,0 +1,21 @@
+.homeHeader {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 0;
+  gap: 0.5rem;
+}
+
+.subheader {
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.homeHeader p {
+  width: 100%;
+  text-wrap: balance;
+  text-align: center;
+}
