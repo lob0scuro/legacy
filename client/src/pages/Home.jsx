@@ -6,14 +6,18 @@ const Home = () => {
   return (
     <>
       <div className={styles.homeHeader}>
-        <h1>Eastwood Legacy 2025</h1>
-        <p className={styles.subheader}>
-          Thank you for contributing to the Legacy Project!
-        </p>
-        <p>
+        <div className={styles.headerMainBlock}>
+          <h1>Eastwood</h1>
+          <h3>Legacy 2025</h3>
+        </div>
+        <p className={styles.blah}>
           {" "}
-          We are gathering photos and videos from the past 75 years of Eastwood
-          Pentacostal Church.
+          As we reflect on 75 years, we are assembling an archive of photographs
+          and videos that preserve the history, milestones, and memories of
+          Eastwood Pentecostal Church.
+        </p>
+        <p className={styles.subheader}>
+          Thank you for contributing <br /> to the Legacy Project!
         </p>
       </div>
       <UploadForm />

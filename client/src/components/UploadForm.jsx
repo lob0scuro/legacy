@@ -1,15 +1,17 @@
 import styles from "./UploadForm.module.css";
 import { useState } from "react";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid"; // For generating unique file names
 import { useNavigate } from "react-router-dom";
+import { UserUpload } from "../lib/API";
 
 const UploadForm = () => {
   const navigate = useNavigate();
   // State to hold the uploaded file(s)
   const [uploadedFile, setUploadedFile] = useState([]);
   const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
@@ -56,6 +58,20 @@ const UploadForm = () => {
         );
         await uploadBytes(storageRef, file);
 
+        //send info to backend
+        const imageURL = await getDownloadURL(storageRef);
+        const inputs = {
+          url: imageURL,
+          name: user,
+          email: email,
+        };
+
+        const sendIt = await UserUpload(inputs);
+        if (!sendIt.success) {
+          throw new Error(sendIt.error);
+        }
+        alert(sendIt.message);
+
         setUploadedFile([]); // Clear the uploaded files after upload
         e.target.reset(); // Reset the form fields
       }
@@ -81,7 +97,7 @@ const UploadForm = () => {
                 src={URL.createObjectURL(file)}
                 alt="uploaded preview"
               />
-              <button onClick={() => handleRemoveFile(index)}>del</button>
+              <button onClick={() => handleRemoveFile(index)}>X</button>
             </div>
           ))}
       </div>
@@ -99,6 +115,16 @@ const UploadForm = () => {
             id="user"
             value={user}
             onChange={(e) => setUser(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -120,7 +146,7 @@ const UploadForm = () => {
       <div
         className={loading ? styles.loadingScreenShow : styles.loadingScreen}
       >
-        <div class={styles.spinner}></div>
+        <div className={styles.spinner}></div>
         Uploading...
       </div>
     </>

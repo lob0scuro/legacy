@@ -1,17 +1,36 @@
 .homeHeader {
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 1rem 0;
-  gap: 0.5rem;
+}
+
+.headerMainBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 36px;
+  margin-bottom: 1rem;
+}
+.homeHeader h1 {
+  font-size: 2.8rem;
+}
+.homeHeader h3 {
+  color: var(--deepGold);
+  font-size: 1.8rem;
 }
 
 .subheader {
   font-weight: 800;
   text-wrap: balance;
+  margin-top: 0.8rem;
+}
+
+p.blah {
+  text-align: justify;
+  max-width: 90%;
 }
 
 .homeHeader p {

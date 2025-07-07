@@ -16,18 +16,18 @@ const Success = () => {
           </span>
         </p>
         <p>
-          watch your inbox for an email from us to help describe people, places
+          Watch your inbox for an email from us to help describe people, places
           and events from photos that you've submitted!
         </p>
       </div>
       <br />
       <br />
-      <p>
+      <p className={styles.lastP}>
         Click{" "}
         <Link className={styles.golden} to="/">
           <b>here</b>
         </Link>{" "}
-        to upload another photo
+        to upload more photos
       </p>
     </>
   );

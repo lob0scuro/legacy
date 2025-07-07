@@ -20,6 +20,7 @@
 
 img.logo {
   width: 12rem;
+  margin-top: 1.2rem;
 }
 
 img.landing-logo {
@@ -43,6 +44,7 @@ html {
   justify-content: center;
   width: 100svw;
   height: 100svh;
+  font-family: var(--secondaryFont);
 }
 
 #root {

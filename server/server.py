@@ -6,11 +6,11 @@ import os
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app)
-db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///default.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'defaultsecret')
+CORS(app)
+db = SQLAlchemy(app)
 
 
 class User(db.Model):
@@ -32,7 +32,7 @@ class User(db.Model):
         
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(120), unique=True, nullable=False)
+    url = db.Column(db.String(767), nullable=False)
     uploaded_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
 
@@ -49,13 +49,13 @@ class Image(db.Model):
         
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    data = request.json
+    data = request.get_json()
     name = data.get('name')
     email = data.get('email')
     url = data.get('url')
     
     if not name:
-        return jsonify({"error": "Name is required"}), 400
+        return jsonify(error="Name is required"), 400
     try:
         new_user = User(name=name.capitalize(), email=email if email else None)
         db.session.add(new_user)
@@ -68,8 +68,8 @@ def add_user():
             db.session.commit()
         
         
-        return jsonify(new_user.serialize()), 201
+        return jsonify(message="User Upload successful!"), 201
     except Exception as e:
         db.session.rollback()
         print(f"Error adding user: {e}")
-        return jsonify(error=f"A server error occurred when adding user"), 500
+        return jsonify(error=f"A server error occurred when adding user: {e}"), 500

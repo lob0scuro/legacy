@@ -4,8 +4,8 @@
   align-items: center;
   width: 100%;
   max-width: 600px;
-  padding: 3rem 1rem;
-  gap: 14px;
+  padding: 1rem 1rem;
+  gap: 5px;
 }
 
 .uploadForm div {
@@ -22,7 +22,8 @@
   font-family: var(--secondaryFont);
 }
 
-.uploadForm input[type="text"] {
+.uploadForm input[type="text"],
+.uploadForm input[type="email"] {
   height: 38px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -80,7 +81,7 @@
   font-size: 16px;
   font-weight: 600;
   width: 100%;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 6px 6px;
   padding-block: 0.2rem;
 }
 
@@ -93,10 +94,11 @@
   background-color: var(--black);
   color: white;
   border: none;
-  padding: 0.5rem 1.4rem;
+  padding: 0.8rem 2rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 24px;
+  margin-block: 3rem;
 }
 
 .loadingScreen {
