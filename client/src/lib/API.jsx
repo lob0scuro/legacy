@@ -1,6 +1,6 @@
 export const UserUpload = async (inputs) => {
   try {
-    const response = await fetch("/api/add_user", {
+    const response = await fetch("/legacy/api/add_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

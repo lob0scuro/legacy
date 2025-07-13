@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///default.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'defaultsecret')
-CORS(app)
+CORS(app, resources={r"/add_user": {"origins": "https://epcteams.com"}})
 db = SQLAlchemy(app)
 
 
