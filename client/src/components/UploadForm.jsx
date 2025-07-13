@@ -5,6 +5,7 @@ import { storage } from "../firebase";
 import { v4 } from "uuid"; // For generating unique file names
 import { useNavigate } from "react-router-dom";
 import { UserUpload } from "../lib/API";
+import toast from "react-hot-toast";
 
 const UploadForm = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const UploadForm = () => {
         const file = uploadedFile[i];
         const storageRef = ref(
           storage,
-          `images/${v4()}-${file.name}-${user.toUpperCase()}`
+          `images/${user.toUpperCase()}-${v4()}-${file.name}`
         );
         await uploadBytes(storageRef, file);
 
@@ -70,7 +71,7 @@ const UploadForm = () => {
         if (!sendIt.success) {
           throw new Error(sendIt.error);
         }
-        alert(sendIt.message);
+        toast.success(sendIt.message);
 
         setUploadedFile([]); // Clear the uploaded files after upload
         e.target.reset(); // Reset the form fields
@@ -79,7 +80,7 @@ const UploadForm = () => {
       navigate("/success"); // Redirect to success page
     } catch (error) {
       setLoading(false);
-      alert("There was an error uploading the file, check console");
+      toast.error("There was an error uploading the file, check console");
       console.error("Error uploading file:", error);
       return;
     }

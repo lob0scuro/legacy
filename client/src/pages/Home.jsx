@@ -1,5 +1,4 @@
 import styles from "./Home.module.css";
-import React from "react";
 import UploadForm from "../components/UploadForm";
 
 const Home = () => {

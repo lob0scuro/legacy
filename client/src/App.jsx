@@ -16,7 +16,10 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="success" element={<Success />} />
       </Route>
-    )
+    ),
+    {
+      basename: "/legacy/",
+    }
   );
   return <RouterProvider router={router} />;
 };
