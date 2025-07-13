@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=True)
+    email = db.Column(db.String(120), nullable=True)
     uploads = db.relationship('Image', backref='user', lazy=True)
 
     def __repr__(self):
@@ -37,7 +37,7 @@ class Image(db.Model):
     
 
     def __repr__(self):
-        return f'<Image {self.filename}>'
+        return f'<Image {self.url}>'
     
     def serialize(self):
         return {
@@ -52,22 +52,22 @@ def add_user():
     data = request.get_json()
     name = data.get('name')
     email = data.get('email')
-    url = data.get('url')
+    url = data.get('url')      
     
     if not name:
         return jsonify(error="Name is required"), 400
     try:
-        new_user = User(name=name.capitalize(), email=email if email else None)
-        db.session.add(new_user)
-        db.session.commit()
-        new_image = Image(url=url, uploaded_by=new_user.id) if url else None
-        if new_image:
+        user = None
+        if email:
+            user = User.query.filter_by(email=email).first()
+        if not user:
+            user = User(name=name.capitalize(), email=email if email else None)
+            db.session.add(user)
+            db.session.flush()
+        if url:
+            new_image = Image(url=url, user=user)
             db.session.add(new_image)
-            db.session.commit()
-            new_user.uploads.append(new_image)
-            db.session.commit()
-        
-        
+        db.session.commit()
         return jsonify(message="User Upload successful!"), 201
     except Exception as e:
         db.session.rollback()
