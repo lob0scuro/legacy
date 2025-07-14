@@ -9,7 +9,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///default.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'defaultsecret')
-CORS(app, resources={r"/add_user": {"origins": "https://epcteams.com"}})
+# CORS(app, resources={r"/add_user": {"origins": "https://epcteams.com"}})
+CORS(app)
 db = SQLAlchemy(app)
 
 
@@ -73,3 +74,12 @@ def add_user():
         db.session.rollback()
         print(f"Error adding user: {e}")
         return jsonify(error=f"A server error occurred when adding user: {e}"), 500
+    
+    
+@app.route("/list_images", methods=["GET"])
+def list_images():
+    return jsonify(images=[img.serialize() for img in Image.query.all()]), 200
+
+@app.route("/list_users", methods=["GET"])
+def list_users():
+    return jsonify(users=[user.serialize() for user in User.query.all()]), 200
